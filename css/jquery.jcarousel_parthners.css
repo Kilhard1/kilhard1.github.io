@@ -1,0 +1,65 @@
+
+.slider {
+    border:0; /* 1px solid #346F97 */
+	overflow:hidden;
+}
+
+
+.slider-title {
+	font-size:14px;
+	font-weight:bold;
+	margin-top:5px;
+	margin-left:8px;
+}
+
+
+.jcarousel-container-horizontal {
+    width:750px;
+	padding-top:14px;
+}
+
+
+.jcarousel-clip-horizontal {
+    width:640px;
+    height:93px;
+    margin-left: 55px;
+    overflow:hidden;
+}
+
+.jcarousel-item-horizontal {
+    width:127px;
+    height:90px;
+    padding-right: 2.5px;
+}
+
+
+/*
+*  Horizontal Buttons
+*/
+.jcarousel-next-horizontal {
+    position:absolute;
+    top:25px;
+    right:15px;
+    width:21px;
+    height:38px;
+    cursor:pointer;
+    background:transparent url('../img/jcarousel_next.png') no-repeat 0 0;
+}
+
+
+
+.jcarousel-skin-tango .jcarousel-prev-horizontal {
+    position:absolute;
+    top:25px;
+    left:15px;
+    width:21px;
+    height:38px;
+    cursor:pointer;
+    background:transparent url('../img/jcarousel_prev.png') no-repeat 0 0;
+}
+
+
+
+
+.jcarousel-item-horizontal .hide {height: 20px;width: 155px;display: none;text-decoration:none;text-align:center;}
+.jcarousel-item-horizontal:hover .hide {display:inline-block;}
