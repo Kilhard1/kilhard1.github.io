@@ -1,8 +1,9 @@
 /*Specification */
 body {
     width: 100%;
-    height: 100vh;
-    background: #bebebe;
+    height: 100%;
+    background: #e2e2e2;
+    font-family: 'Roboto';
 }
 
 ul, li {
@@ -21,24 +22,25 @@ a:hover {
 
 .mo-sport {
     background: #fdb62d;
-    padding: 100px 0 0;
+    padding: 6.25rem 0 0;
     position: relative;
 }
 
 .mo-sport h1 {
     color: #fff;
-    padding: 0 0 20px;
-    font-size: 65px;
+    padding: 0 0 1.25rem;
+    font-size: 4.0625rem;
     text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
 }
 
 .mo-sport p {
     font-size: 1rem;
     color: #fff;
+    margin: 0 0 2.25rem;
 }
 
 .mo-sport__heading-area {
-    margin: 0 0 40px;
+    margin: 0 0 2.25rem;
     position: relative;
 }
 
@@ -74,13 +76,103 @@ a:hover {
     width: 190px;
     height: 44px;
     line-height: 44px;
-    font-size: 15px;
     position: relative;
-    transition: all 0.4s easy-in-out;
+    transition: all 0.4s ease-in-out;
     text-align: center;
     border-radius: 22px;
 }
 
 .btn__text {
     color: #fff;
+    z-index: 3;
+    position: relative;
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+
+.btn__icon {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    border-radius: 50%;
+    transition: all 0.4s ease-in-out;
+    background: #ff513b;
+    z-index: 2;
+}
+
+.btn-mo:hover .btn__icon {
+    width: calc(100% - 12px);
+    text-align: left;
+    border-radius: 30px;
+
+}
+
+.main-page {
+    padding: 5rem 0 3.75rem;
+}
+
+.mo-form {
+    font-size: 1rem;
+    line-height: 30px;
+}
+
+.mo-check {
+    display: block;
+    margin: 0.625rem 0;
+    position: relative;
+}
+
+.mo-check label {
+    padding: 0.75rem 1.875rem;
+    display: block;
+    text-align: left;
+    color: #3C454C;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 0.4ms ease-in;
+    /* overflow: hidden; */
+    margin-left: 1.25rem;
+    background-color: #fff;
+    box-shadow: 0 4px 12px -1px rgba(18, 22, 33, 0.1);
+    border-radius: 6px;
+}
+
+.mo-check input {
+    width: 28px;
+    height: 28px;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    cursor: pointer;
+    margin: 0;
+    visibility: hidden;
+}
+
+.mo-check label:after {
+    width: 28px;
+    height: 28px;
+    content: '';
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%;
+    border: 2px solid #d1d7dc;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+    left: -45px;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+
+}
+
+
+.mo-check input:checked ~ label:after {
+    background-color: rgb(244, 64, 41);
+    border-color: rgb(244, 64, 41);
 }
