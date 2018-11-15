@@ -11,74 +11,95 @@
     </head>
 
     <body>
-      <section class="mo-sport">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-7">
-              <div class="mo-sport__heading-area">
-                <h1>Спорт расписание</h1>
-              </div>
-              <p>"Однако наш текст не терял надежды найти свою подругу Lora Ipsum. Он написал письмо на передачу "Найди меня", а через неделю уже сидел в студии</p>
-              <a href="#" class="btn-mo red">
-                <span class="btn__text">Добавить</span>
-                <span class="btn__icon"> </span>
-              </a>
-            </div>
-            <div class="col-md-5">
-              <img class="mo-sport__image" src="img/img1.png" alt="">
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="main-page">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-6">
-              <form class="mo-form">
-                <div class="form-check mo-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                  <label class="form-check-label" for="defaultCheck1">
-                    Бег на 100 метров
-                  </label>
-                </div>
-                <div class="form-check mo-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                  <label class="form-check-label" for="defaultCheck2">
-                    Прыжки в высоту
-                  </label>
-                </div>
-                <div class="form-check mo-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                  <label class="form-check-label" for="defaultCheck3">
-                    Бег на 1000 метров
-                  </label>
-                </div>
-                <div class="form-check mo-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-                  <label class="form-check-label" for="defaultCheck4">
-                    Толкание ядра
-                  </label>
-                </div>
-                <div class="form-check mo-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
-                  <label class="form-check-label" for="defaultCheck5">
-                    Тройной прыжок
-                  </label>
-                </div>
-                <div class="form-check mo-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck6">
-                  <label class="form-check-label" for="defaultCheck6">
-                    Эстафета 4x400
-                  </label>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
       
+      <div id="app" class="main">
+        <div class="mo-sport">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-7">
+                <div class="mo-sport__heading-area">
+                  <h1>Спорт расписание</h1>
+                </div>
+                <p>"Однако наш текст не терял надежды найти свою подругу Lora Ipsum. Он написал письмо на передачу "Найди меня", а через неделю уже сидел в студии</p>
+                <a href="#" class="btn-mo red" v-on:click="addItem">
+                  <span class="btn__text">Добавить</span>
+                  <span class="btn__icon icon__red"> </span>
+                </a>
+                <a href="#" class="btn-mo green" v-on:click="addItem">
+                    <span class="btn__text" v-on:click="clearList">Удалить</span>
+                    <span class="btn__icon icon__green"> </span>
+                </a>
+              </div>
+              <div class="col-sm-5">
+                <img class="mo-sport__image" src="img/img1.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
 
-    
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+        <div class="main-page">
+          <div class="container">
+            <div class="row">
+              <!-- <div class="col-md-6">
+                <form class="mo-form">
+                  <div class="form-check mo-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      Бег на 100 метров
+                    </label>
+                  </div>
+                  <div class="form-check mo-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                    <label class="form-check-label" for="defaultCheck2">
+                      Прыжки в высоту
+                    </label>
+                  </div>
+                  <div class="form-check mo-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
+                    <label class="form-check-label" for="defaultCheck3">
+                      Бег на 1000 метров
+                    </label>
+                  </div>
+                  <div class="form-check mo-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
+                    <label class="form-check-label" for="defaultCheck4">
+                      Толкание ядра
+                    </label>
+                  </div>
+                  <div class="form-check mo-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
+                    <label class="form-check-label" for="defaultCheck5">
+                      Тройной прыжок
+                    </label>
+                  </div>
+                  <div class="form-check mo-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck6">
+                    <label class="form-check-label" for="defaultCheck6">
+                      Эстафета 4x400
+                    </label>
+                  </div>
+                </form>
+              </div> -->
+
+              <div class="col-md-6 mx-auto">
+                <div class="form-check mo-check" v-for="(item, index) in items">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        <span class="check-time">{{ item.time }}</span> 
+                        {{ item.name }} 
+                        <button type="button" class="check-close" v-on:click="removeItem(index)">
+                            <span>&times;</span>
+                        </button>
+                    </label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
