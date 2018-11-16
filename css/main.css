@@ -38,7 +38,7 @@ a:hover {
 
 .mo-sport {
     background: #fdb62d;
-    padding: 6.25rem 0 0;
+    padding: 5.5rem 0 0;
     position: relative;
 }
 
@@ -126,7 +126,7 @@ a:hover {
 }
 
 .main-page {
-    padding: 5rem 0 3.75rem;
+    padding: 2rem 0 3.75rem;
 }
 
 .mo-form {
@@ -218,4 +218,21 @@ a:hover {
 .check-close:hover span {
     opacity: 1;
     color: rgb(244, 64, 41);
+}
+
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    margin-bottom: 1rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }

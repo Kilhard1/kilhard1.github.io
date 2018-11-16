@@ -25,7 +25,7 @@
                   <span class="btn__text">Добавить</span>
                   <span class="btn__icon icon__red"> </span>
                 </a>
-                <a href="#" class="btn-mo green" v-on:click="addItem">
+                <a href="#" class="btn-mo green">
                     <span class="btn__text" v-on:click="clearList">Удалить</span>
                     <span class="btn__icon icon__green"> </span>
                 </a>
@@ -39,6 +39,14 @@
 
         <div class="main-page">
           <div class="container">
+            <div class="row">
+              <div class="col-4 ml-auto">
+                <form>
+                  <input placeholder="Название" class="form-control">
+                  <input placeholder="Время" class="form-control">
+                </form>
+              </div>
+            </div>
             <div class="row">
               <!-- <div class="col-md-6">
                 <form class="mo-form">
@@ -81,10 +89,10 @@
                 </form>
               </div> -->
 
-              <div class="col-md-6 mx-auto">
+              <div class="col-md-6">
                 <div class="form-check mo-check" v-for="(item, index) in items">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
+                    <input class="form-check-input" type="checkbox" value="" v-bind:id="'defaultCheck' + index" v-model="item.check">
+                    <label class="form-check-label" v-bind:for="'defaultCheck' + index">
                         <span class="check-time">{{ item.time }}</span> 
                         {{ item.name }} 
                         <button type="button" class="check-close" v-on:click="removeItem(index)">
