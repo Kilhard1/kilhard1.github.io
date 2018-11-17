@@ -13,25 +13,46 @@
     <body>
       
       <div id="app" class="main">
+
         <div class="mo-sport">
           <div class="container">
             <div class="row">
-              <div class="col-sm-7">
+              <div class="col-md-7">
                 <div class="mo-sport__heading-area">
                   <h1>Спорт расписание</h1>
                 </div>
                 <p>"Однако наш текст не терял надежды найти свою подругу Lora Ipsum. Он написал письмо на передачу "Найди меня", а через неделю уже сидел в студии</p>
-                <a href="#" class="btn-mo red" v-on:click="addItem">
+                <a href="#" class="btn-mo red" v-on:click="modalOn">
                   <span class="btn__text">Добавить</span>
                   <span class="btn__icon icon__red"> </span>
                 </a>
-                <a href="#" class="btn-mo green">
-                    <span class="btn__text" v-on:click="clearList">Удалить</span>
-                    <span class="btn__icon icon__green"> </span>
-                </a>
               </div>
-              <div class="col-sm-5">
-                <img class="mo-sport__image" src="img/img1.png" alt="">
+              
+              <div class="col-md-5">
+                <div class="modal-dialog" v-bind:class="{ active: modal }">
+                  <div class="modal-content">
+                    <div class="modal-header text-center">
+                      <h4 class="modal-title w-100 font-weight-bold">Модальное</h4>
+                      <button type="button" class="close" v-on:click="modalOff">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                      <div class="md-form mt-3 mb-4">
+                        <input type="text" placeholder="Название" class="form-control" v-model="name">
+                      </div>
+              
+                      <div class="md-form mb-4">
+                        <input type="text" placeholder="Время" class="form-control" v-model="time">
+                      </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                      <button class="btn red" v-on:click="addItemForm">Добавить <i class="fa fa-paper-plane-o ml-1"></i></button>
+                      <button class="btn" v-on:click="modalOff">Отмена <i class="fa fa-paper-plane-o ml-1"></i></button>
+                    </div>
+                  </div>
+                </div>
+                <!-- <img class="mo-sport__image" src="img/img1.png" alt=""> -->
               </div>
             </div>
           </div>
@@ -39,56 +60,13 @@
 
         <div class="main-page">
           <div class="container">
+
             <div class="row">
-              <div class="col-4 ml-auto">
-                <form>
-                  <input placeholder="Название" class="form-control">
-                  <input placeholder="Время" class="form-control">
-                </form>
+              <div class="col-md-4 ml-auto">
               </div>
             </div>
-            <div class="row">
-              <!-- <div class="col-md-6">
-                <form class="mo-form">
-                  <div class="form-check mo-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                      Бег на 100 метров
-                    </label>
-                  </div>
-                  <div class="form-check mo-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                    <label class="form-check-label" for="defaultCheck2">
-                      Прыжки в высоту
-                    </label>
-                  </div>
-                  <div class="form-check mo-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                    <label class="form-check-label" for="defaultCheck3">
-                      Бег на 1000 метров
-                    </label>
-                  </div>
-                  <div class="form-check mo-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-                    <label class="form-check-label" for="defaultCheck4">
-                      Толкание ядра
-                    </label>
-                  </div>
-                  <div class="form-check mo-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
-                    <label class="form-check-label" for="defaultCheck5">
-                      Тройной прыжок
-                    </label>
-                  </div>
-                  <div class="form-check mo-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck6">
-                    <label class="form-check-label" for="defaultCheck6">
-                      Эстафета 4x400
-                    </label>
-                  </div>
-                </form>
-              </div> -->
 
+            <div class="row">
               <div class="col-md-6">
                 <div class="form-check mo-check" v-for="(item, index) in items">
                     <input class="form-check-input" type="checkbox" value="" v-bind:id="'defaultCheck' + index" v-model="item.check">
@@ -101,11 +79,17 @@
                     </label>
                 </div>
               </div>
-
+              <div class="col-md-6">
+                <div class="drop_panel">
+                  <div class="timeline">              
+                    <div class="time" v-for="(time, index) in times"> {{ time }} </div>                         
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
         </div>
       </div>
+    </div>
       
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="js/app.js"></script>

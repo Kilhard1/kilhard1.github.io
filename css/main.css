@@ -4,7 +4,7 @@ body {
     height: 100%;
     background: #e2e2e2;
     font-family: 'Roboto';
-    color: red;
+    color: #212529;
 }
 
 ul, li {
@@ -19,6 +19,7 @@ a:hover {
 
 .red {
     background: #f44029;
+    color: #fff;
 }
 
 .icon__red {
@@ -96,7 +97,7 @@ a:hover {
     transition: all 0.4s ease-in-out;
     text-align: center;
     border-radius: 22px;
-    margin-right: 20px;
+    margin-bottom: 100px;
 }
 
 .btn__text {
@@ -221,18 +222,51 @@ a:hover {
 }
 
 
-.form-control {
+.modal-dialog {
+    max-width: 380px;
+    display: none;
+    margin: 0 auto;
+}
+
+.modal-dialog.active {
     display: block;
-    width: 100%;
-    height: calc(2.25rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    margin-bottom: 1rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.modal-dialog.active + .mo-sport__image {
+    display: none;
+}
+
+
+.modal-dialog .modal-content {
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+    border: 0;
+    border-radius: .125rem;
+}
+
+
+.drop_panel {
+    
+    position: relative;
+}
+
+.timeline {
+    text-align: left;
+    width: 320px;
+    background-color: white;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.time {
+    border: 1px solid #d9d9d9;
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.time.selected {
+    background-color: gray;
+    color: white;
+    cursor: pointer;
 }
