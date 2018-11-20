@@ -81,8 +81,10 @@
               </div>
               <div class="col-md-6">
                 <div class="drop_panel">
-                  <div class="timeline">              
-                    <div class="time" v-for="(time, index) in times"> {{ time }} </div>                         
+                  <div class="timeline" v-bind:class="{ active: checkedItems }">              
+                    <div class="time" v-for="(time, index) in times" v-bind:class="{ selected: activeTime(index) }" v-on:click="selectTime(index)"> 
+                          {{ time }} 
+                    </div>                         
                   </div>
                 </div>
               </div>

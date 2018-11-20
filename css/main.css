@@ -255,6 +255,11 @@ a:hover {
     background-color: white;
     padding: 20px;
     margin: 0 auto;
+    opacity: 0.5;
+}
+
+.timeline.active {
+    opacity: 1;
 }
 
 .time {

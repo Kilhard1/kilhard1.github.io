@@ -6,16 +6,29 @@ var sortByTime = function(d1, d2){
 		return 1;
 	}
 };
+var isChecked = function(d) {
+	return d.check;
+}
 
 var app = new Vue({
-  el: "#app",
-  data: {
+	el: "#app",
+  	data: {
 	    modal: false,
 		time: '',
 		name: '',
 		items: [],
+		selectTimeItem: -1,
 		times: [ '10:00', '10:15', '10:30', '10:45', '11:00', '11:15', '11:30', '11:45', '12:00', '12:15', '12:30', '12:45', '13:00', '13:15', '13:30' ]
-  },
+	},
+	computed: {
+		checkedItems: function() {
+			var ok = this.items.some(isChecked);
+			if( ok === false )	{
+				this.selectTimeItem = -1;
+			}
+          	return ok;
+		},
+	},
 	methods: {
 		addItemForm: function() {
 			if( this.name == '' ) {
@@ -44,6 +57,18 @@ var app = new Vue({
 		},
 		modalOff: function() {
 			this.modal = false;
+		},
+		activeTime: function(index) {
+			return ( index === this.selectTimeItem )
+		},
+		selectTime: function(index) {
+			this.selectTimeItem = index;
+			this.items.forEach( function(curItem) {
+				if( curItem.check === true ) {
+					curItem.time = this.times[index];
+				}
+			}, this);
+			this.items.sort(sortByTime);
 		},
 
 	}
