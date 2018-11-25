@@ -40,16 +40,15 @@
             </div>
           </div>
         </div>
-
         <div class="main-page">
-          <div class="container"> 
+          <div class="container">
             <div class="row">
               <div class="col-md-6">
-                <div class="form-check mo-check" v-for="(item, index) in items">
+                <div class="form-check mo-check" v-for="(item, index) in items" v-bind:key="index">
                   <input class="form-check-input" type="checkbox" value="" v-bind:id="'defaultCheck' + index" v-model="item.check">
                   <label class="form-check-label" v-bind:for="'defaultCheck' + index">
-                      <span class="check-time">{{ item.time }}</span> 
-                      {{ item.name }} 
+                      <span class="check-time">{{ item.time }}</span>
+                      {{ item.name }}
                       <button type="button" class="check-close" v-on:click="removeItem(index)">
                           <span>&times;</span>
                       </button>
@@ -58,10 +57,10 @@
               </div>
               <div class="col-md-6">
                 <div class="drop_panel">
-                  <div class="timeline" v-bind:class="{ active: checkedItems }">              
-                    <div class="time" v-for="(time, index) in times" v-bind:class="{ selected: activeTime(index) }" v-on:click="selectTime(index)"> 
-                          {{ time }} 
-                    </div>                         
+                  <div class="timeline" v-bind:class="{ active: checkedItems }">
+                    <div class="time" v-for="(time, index) in times" v-bind:key="index" v-bind:class="{ selected: activeTime(index) }" v-on:click="selectTime(index)">
+                          {{ time }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -69,10 +68,11 @@
           </div>
         </div>
       </div>
-
 </template>
 
 <script>
+import axios from 'axios'
+
 var sortByTime = function (d1, d2) {
   if (d1.time < d2.time) {
     return -1
@@ -84,28 +84,81 @@ var isChecked = function (d) {
   return d.check
 }
 
+const URLgetItemAPI = 'https://private-anon-7147503c9e-test17563.apiary-mock.com/events'
+const URLupdateItemAPI = 'https://private-anon-7147503c9e-test17563.apiary-mock.com/events/1'
+const URLdeleteItemAPI = 'https://private-anon-7147503c9e-test17563.apiary-mock.com/events/1'
+
 export default {
   name: 'Main',
   data () {
     return {
+      axiosGetItems: [],
+      axiosError: [],
+      axiosDate: '',
       modal: false,
       time: '',
       name: '',
       items: [],
-      selectTimeItem: -1,
-      times: [ '10:00', '10:15', '10:30', '10:45', '11:00', '11:15', '11:30', '11:45', '12:00', '12:15', '12:30', '12:45', '13:00', '13:15', '13:30' ]
+      indexItems: 0,
+      times: [ '10:00', '10:15', '10:30', '10:45', '11:00', '11:15', '11:30', '11:45', '12:00', '12:15', '12:30', '12:45', '13:00', '13:15', '13:30' ],
+      selectTimeItem: -1
     }
   },
   computed: {
     checkedItems: function () {
-      var ok = this.items.some(isChecked)
-      if (ok === false) {
-        this.selectTimeItem = -1
-      }
-      return ok
+      return this.items.some(isChecked)
     }
   },
+  mounted () {
+    this.getItemAPI()
+  },
   methods: {
+    delItemAPI: function (item) {
+      var lDate = this.axiosDate + 'T' + item.time + ':00Z'
+      var lTitle = item.name
+      var axiosItem = {
+        date: lDate,
+        title: lTitle
+      }
+      console.log(axiosItem)
+      axios.delete(URLdeleteItemAPI, axiosItem)
+        .then(response => {
+        })
+        .catch(error => {
+          this.axiosError.push(error)
+        })
+    },
+    getItemAPI: function () {
+      axios.get(URLgetItemAPI)
+        .then(response => {
+          this.axiosGetItems = response.data
+          this.copyAxiosToItems()
+        })
+        .catch(error => {
+          this.axiosError.push(error)
+        })
+    },
+    copyAxiosToItems: function () {
+      var dt = this.axiosGetItems[0].date
+      this.axiosDate = dt.substr(0, 10)
+      if (this.axiosGetItems.length > 0) {
+        var lId, lTitle, lDate, lTime, item
+        for (var i = 0; i < this.axiosGetItems.length; i++) {
+          lId = this.indexItems++
+          lTitle = this.axiosGetItems[i].title
+          lDate = this.axiosGetItems[i].date
+          lTime = lDate.substr(11, 5)
+          item = {
+            id: lId,
+            time: lTime,
+            name: lTitle,
+            check: false
+          }
+          this.items.push(item)
+        }
+        this.items.sort(sortByTime)
+      }
+    },
     addItemForm: function () {
       if (this.name === '') {
         alert('Нужно заполнить все поля')
@@ -115,7 +168,9 @@ export default {
         alert('Нужно заполнить все поля')
         return
       }
+      var id = this.indexItems++
       var item = {
+        id: id,
         time: this.time,
         name: this.name,
         check: false
@@ -126,7 +181,9 @@ export default {
       this.name = ''
     },
     removeItem: function (index) {
+      var item = this.items[index]
       this.items.splice(index, 1)
+      this.delItemAPI(item)
     },
     modalOn: function () {
       this.modal = true
@@ -135,6 +192,8 @@ export default {
       this.modal = false
     },
     activeTime: function (index) {
+      var ok = this.checkedItems
+      if (!ok) { return ok }
       return (index === this.selectTimeItem)
     },
     selectTime: function (index) {
