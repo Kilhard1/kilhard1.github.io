@@ -92,20 +92,20 @@ export default {
   name: 'Main',
   data () {
     return {
-      axiosGetItems: [],
-      axiosError: [],
-      axiosDate: '',
-      modal: false,
-      time: '',
-      name: '',
-      items: [],
-      indexItems: 0,
+      axiosGetItems: [],  // список, полученный с сервера
+      axiosError: [],     // ошибки при обращении к серверу
+      axiosDate: '',      // дата, выделенная из списка
+      modal: false,       // признак активности модальной формы
+      time: '',           // время - поле ввода мод.формы
+      name: '',           // текст - поле ввода мод.формы
+      items: [],          // список для визуализации
+      indexItems: 0,      // индекс для уникальности элементов списка
       times: [ '10:00', '10:15', '10:30', '10:45', '11:00', '11:15', '11:30', '11:45', '12:00', '12:15', '12:30', '12:45', '13:00', '13:15', '13:30' ],
-      selectTimeItem: -1
+      selectTimeItem: -1  //индекс выбранного времени
     }
   },
   computed: {
-    checkedItems: function () {
+    checkedItems: function () {   // проверка, есть ли в списке хотя бы один выбранный      
       return this.items.some(isChecked)
     }
   },
@@ -113,14 +113,15 @@ export default {
     this.getItemAPI()
   },
   methods: {
+    // API удаление
     delItemAPI: function (item) {
       var lDate = this.axiosDate + 'T' + item.time + ':00Z'
       var lTitle = item.name
-      var axiosItem = {
+      var axiosItem = []
+      axiosItem.push({
         date: lDate,
         title: lTitle
-      }
-      console.log(axiosItem)
+      })
       axios.delete(URLdeleteItemAPI, axiosItem)
         .then(response => {
         })
@@ -128,6 +129,21 @@ export default {
           this.axiosError.push(error)
         })
     },
+    // API обновление
+    updateItemAPI: function (itemUpdate) {
+      var axiosItem = []
+      var lDate, lTitle
+      lDate = this.axiosDate + 'T' + itemUpdate[0].time + ':00Z'
+      lTitle = itemUpdate[0].name
+      axiosItem.push( {date: lDate, title: lTitle} )
+      axios.put(URLupdateItemAPI, axiosItem)
+        .then(response => {
+        })
+        .catch(error => {
+          this.axiosError.push(error)
+        })
+    },
+    // API список
     getItemAPI: function () {
       axios.get(URLgetItemAPI)
         .then(response => {
@@ -138,6 +154,7 @@ export default {
           this.axiosError.push(error)
         })
     },
+    // преобразование списка с сервера в список для показа 
     copyAxiosToItems: function () {
       var dt = this.axiosGetItems[0].date
       this.axiosDate = dt.substr(0, 10)
@@ -159,6 +176,7 @@ export default {
         this.items.sort(sortByTime)
       }
     },
+    // добавление в список введенных значений в модалной форме
     addItemForm: function () {
       if (this.name === '') {
         alert('Нужно заполнить все поля')
@@ -180,14 +198,17 @@ export default {
       this.time = ''
       this.name = ''
     },
+    // удаление из списка
     removeItem: function (index) {
       var item = this.items[index]
       this.items.splice(index, 1)
       this.delItemAPI(item)
     },
+    // показать модальную форму
     modalOn: function () {
       this.modal = true
     },
+    // скрыть модальную форму
     modalOff: function () {
       this.modal = false
     },
@@ -196,21 +217,31 @@ export default {
       if (!ok) { return ok }
       return (index === this.selectTimeItem)
     },
+    // замена в списке времени
     selectTime: function (index) {
+      var lItems = []
       this.selectTimeItem = index
       this.items.forEach(function (curItem) {
         if (curItem.check === true) {
           curItem.time = this.times[index]
+          lItems.push({
+            id: curItem.id,
+            time: curItem.time,
+            name: curItem.name,
+            check: curItem.check
+          })
         }
       }, this)
       this.items.sort(sortByTime)
+      this.updateItemAPI(lItems)
     }
   }
 }
 </script>
 
 <style scoped  lang="scss">
-@import "./../assets/bootstrap.css";
+@import 'bootstrap/dist/css/bootstrap.css';
+@import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 ul, li {
     display: block;
