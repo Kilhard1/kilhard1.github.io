@@ -27,7 +27,7 @@
                         <input type="text" placeholder="Название" class="form-control" v-model="name">
                       </div>
                       <div class="md-form mb-4">
-                        <input type="text" placeholder="Время" class="form-control" v-model="time">
+                        <b-form-input id="type-time" type="time" placeholder="Время" v-model="time"></b-form-input>
                       </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
